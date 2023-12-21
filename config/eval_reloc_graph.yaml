@@ -1,0 +1,25 @@
+dataset:
+  data_path: ./data/Gabriel/100_3_6_10/
+  fac_low: 0.1
+  fac_high: 0.1
+
+methods:
+  Original:
+    run_fn: run_original
+
+  Random-swap:
+    run_fn: run_random_swap_reloc
+    iter_num: 5
+
+  Greedy-swap:
+    run_fn: run_greedy_swap_reloc
+
+  VSCA:
+    run_fn: run_VSCA_reloc
+
+  PPO-swap:
+    run_fn: run_ppo_swap_reloc
+    iter_num: 5
+    ckpt: null # todo: replace ckpt
+    name: null # todo: replace name
+    device: cpu

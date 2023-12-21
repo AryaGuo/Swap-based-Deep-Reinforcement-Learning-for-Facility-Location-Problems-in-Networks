@@ -1,0 +1,49 @@
+dataset:
+  data_path: ./data/Gabriel/100_3_6_10/
+  fac_low: 0.1
+  fac_high: 0.1
+
+methods:
+  Gurobi:
+    run_fn: run_gurobi
+    OutputFlag: 0
+    MIPGap: 0.0001
+
+  Random:
+    run_fn: run_random
+    iter_num: 5
+
+  K-means:
+    run_fn: run_kmeans
+    iter_num: 5
+
+  Maranzana:
+    run_fn: run_maranzana
+    iter_num: 5
+    swap_num: 20
+
+  Greedy-addition:
+    run_fn: run_greedy
+
+  Random-swap:
+    run_fn: run_random_swap
+    iter_num: 5
+    swap_num: 20
+
+  Greedy-swap:
+    run_fn: run_greedy_swap
+    iter_num: 5
+    swap_num: 20
+
+  VSCA:
+    run_fn: run_VSCA
+    iter_num: 5
+    swap_num: 20
+
+  PPO-swap:
+    run_fn: run_ppo_swap
+    iter_num: 5
+    swap_num: 20
+    ckpt: null # todo: replace ckpt
+    name: null # todo: replace name
+    device: cpu

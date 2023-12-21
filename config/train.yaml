@@ -1,0 +1,64 @@
+ckpt: "./logs/bc/version_0/checkpoints/last.ckpt"
+
+logging:
+    log_name: time.strftime("%Y%m%d-%H%M%S")
+    seed: null
+
+model_params: &model_params
+    fac_c_in: 10
+    c_hidden: 64
+    c_out: 128
+    num_layers: 3
+    layer_name: GATv2Conv
+    edge_dim: 1
+    heads: 4
+
+bc_model:
+    lr: 0.001
+    lr_gamma: 0.99
+    model_params: *model_params
+
+bc:
+    batch_size: 100
+    num_interactions: 10000
+    env_params:
+        dataset: SynGraphImpDataset
+        data_path: ./data/Gabriel/100_3_6_1000
+        fac_low: 0.1
+        fac_high: 0.1
+        episode_len: 10
+
+bc_trainer:
+    max_epochs: 350
+    accelerator: gpu
+    devices: [0]
+    auto_select_gpus: False
+    track_grad_norm: 2
+
+ppo:
+    gamma: 0.9
+    lam: 0.95
+    lr: 0.0001
+    lr_gamma: 0.99
+    batch_size: 64
+    steps_per_epoch: 1024
+    nb_optim_iters: 4
+    clip_ratio: 0.1
+    clip_decay: 0.998
+    ent_weight: 0.01
+    critic_weight: 0.5
+    gradient_clip_val: 0.5
+    model_params: *model_params
+    env_params:
+        dataset: SynGraphImpDataset
+        data_path: ./data/Gabriel/100_3_6_1000
+        fac_low: 0.1
+        fac_high: 0.1
+        episode_len: 10
+
+ppo_trainer:
+    max_epochs: 500
+    accelerator: gpu
+    devices: [0]
+    auto_select_gpus: False
+    track_grad_norm: 2
